@@ -5,9 +5,8 @@ class Node {
   String nim;
   String nama;
   double nilai;
-  Node next; // Pointer ke node berikutnya
+  Node next;
 
-  // Constructor
   public Node(String nim, String nama, double nilai) {
     this.nim = nim;
     this.nama = nama;
@@ -18,32 +17,27 @@ class Node {
 
 // Class Mahasiswa untuk menyimpan data mahasiswa
 class Mahasiswa {
-  private Node head; // Head dari Linked List
+  private Node head;
 
   public Mahasiswa() {
     head = null;
   }
 
-  // Method untuk menambah mahasiswa baru di akhir Linked List
   public void tambahMahasiswa(String nim, String nama, double nilai) {
     Node newNode = new Node(nim, nama, nilai);
 
     if (head == null) {
-      // Jika Linked List kosong, jadikan node baru sebagai head
       head = newNode;
     } else {
-      // Traverse ke node terakhir
       Node current = head;
       while (current.next != null) {
         current = current.next;
       }
-      // Tambahkan node baru di akhir
       current.next = newNode;
     }
     System.out.println("Mahasiswa " + nama + " berhasil ditambahkan!");
   }
 
-  // Method untuk mencari mahasiswa berdasarkan NIM
   private Node cariMahasiswa(String nim) {
     Node current = head;
     while (current != null) {
@@ -52,10 +46,9 @@ class Mahasiswa {
       }
       current = current.next;
     }
-    return null; // Mahasiswa tidak ditemukan
+    return null;
   }
 
-  // Method untuk mengupdate nilai mahasiswa berdasarkan NIM
   public void updateNilai(String nim, double nilaiBaru) {
     Node mahasiswa = cariMahasiswa(nim);
     if (mahasiswa != null) {
@@ -66,27 +59,23 @@ class Mahasiswa {
     }
   }
 
-  // Method untuk menghapus mahasiswa berdasarkan NIM
   public void hapusMahasiswa(String nim) {
     if (head == null) {
       System.out.println("Daftar mahasiswa kosong!");
       return;
     }
 
-    // Jika node yang akan dihapus adalah head
     if (head.nim.equals(nim)) {
       head = head.next;
       System.out.println("Mahasiswa dengan NIM " + nim + " berhasil dihapus!");
       return;
     }
 
-    // Cari node sebelum node yang akan dihapus
     Node current = head;
     while (current.next != null && !current.next.nim.equals(nim)) {
       current = current.next;
     }
 
-    // Jika ditemukan, hapus node tersebut
     if (current.next != null) {
       current.next = current.next.next;
       System.out.println("Mahasiswa dengan NIM " + nim + " berhasil dihapus!");
@@ -95,7 +84,6 @@ class Mahasiswa {
     }
   }
 
-  // Method untuk menampilkan daftar semua mahasiswa
   public void tampilkanDaftar() {
     if (head == null) {
       System.out.println("Daftar mahasiswa kosong!");
@@ -121,23 +109,14 @@ public class ManajemenMahasiswa {
   public static void main(String[] args) {
     Mahasiswa daftarMahasiswa = new Mahasiswa();
 
-    // Tambah mahasiswa pertama
     daftarMahasiswa.tambahMahasiswa("20123456", "Sari", 88);
-
-    // Tambah mahasiswa kedua
     daftarMahasiswa.tambahMahasiswa("20176543", "Doni", 92);
-
-    // Tampilkan daftar awal
     daftarMahasiswa.tampilkanDaftar();
 
-    // Update nilai Doni
     System.out.println("Mengupdate nilai mahasiswa (Doni -> 97)");
     daftarMahasiswa.updateNilai("20176543", 97);
-
-    // Tampilkan daftar setelah update
     daftarMahasiswa.tampilkanDaftar();
 
-    // Test hapus mahasiswa
     System.out.println("Menghapus mahasiswa Sari...");
     daftarMahasiswa.hapusMahasiswa("20123456");
     daftarMahasiswa.tampilkanDaftar();
